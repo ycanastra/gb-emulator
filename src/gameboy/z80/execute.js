@@ -188,6 +188,10 @@ function execute() {
         this.XORr8('a');
         break;
       }
+      case 0xB1: { // OR C
+        this.ORr8('c');
+        break;
+      }
       case 0xBE: { // CP (HL)
         this.CPrr16('h', 'l');
         break;
