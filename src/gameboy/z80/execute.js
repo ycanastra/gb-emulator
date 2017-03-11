@@ -16,9 +16,9 @@ function execute() {
       }
       default: {
         console.log('Non-implemented extended instruction:');
-        console.log('PCHex: ', this.originalpc.toString(16));
-        console.log('PrefixHex: ', this.prefix.toString(16));
-        console.log('OpcodeHex: ', this.opcode.toString(16));
+        console.log('PCHex: ', `0x${this.originalpc.toString(16).padStart(4, '0').toUpperCase()}`);
+        console.log('PrefixHex: ', `0x${this.prefix.toString(16).padStart(2, '0').toUpperCase()}`);
+        console.log('OpcodeHex: ', `0x${this.opcode.toString(16).padStart(2, '0').toUpperCase()}`);
         console.log();
         break;
       }
@@ -263,8 +263,8 @@ function execute() {
       }
       default: {
         console.log('Non-implemented instruction:');
-        console.log('PCHex: ', this.originalpc.toString(16));
-        console.log('OpcodeHex: ', this.opcode.toString(16));
+        console.log('PCHex: ', `0x${this.originalpc.toString(16).padStart(4, '0').toUpperCase()}`);
+        console.log('OpcodeHex: ', `0x${this.opcode.toString(16).padStart(2, '0').toUpperCase()}`);
         console.log();
         break;
       }
