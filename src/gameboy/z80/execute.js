@@ -24,6 +24,10 @@ function execute() {
       case 0x00: { // NOP
         break;
       }
+      case 0x01: { // LD BC,$aabb
+        this.LDr16n16('b', 'c', this.byte2, this.byte1);
+        break;
+      }
       case 0x04: { // INC B
         this.INCr8('b');
         break;
