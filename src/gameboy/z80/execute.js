@@ -152,6 +152,10 @@ function execute() {
         this.LDr8n8('a', this.byte1);
         break;
       }
+      case 0x47: { // LD B,A
+        this.LDr8r8('b', 'a');
+        break;
+      }
       case 0x4F: { // LD C,A
         this.LDr8r8('c', 'a');
         break;
@@ -180,6 +184,10 @@ function execute() {
         this.LDr8r8('a', 'b');
         break;
       }
+      case 0x79: { // LD A,C
+        this.LDr8r8('a', 'c');
+        break;
+      }
       case 0x7D: { // LD A,L
         this.LDr8r8('a', 'l');
         break;
@@ -192,8 +200,20 @@ function execute() {
         this.SUBr8('b');
         break;
       }
+      case 0xA1: { // AND C
+        this.ANDr8('c');
+        break;
+      }
+      case 0xA9: { // XOR C
+        this.XORr8('c');
+        break;
+      }
       case 0xAF: { // XOR A
         this.XORr8('a');
+        break;
+      }
+      case 0xB0: { // OR B
+        this.ORr8('b');
         break;
       }
       case 0xB1: { // OR C
