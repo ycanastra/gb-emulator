@@ -13,7 +13,7 @@
 		"operands": ["BC", "d16"],
 		"bytes": 3,
 		"cycles": 12,
-		"flagsZNHC": ["-", "-", "-", "-"]
+		"flagsZNHC": ["-", ".-", "-", "-"]
 	},
 	"2": {
 		"opcode": "0x2",
