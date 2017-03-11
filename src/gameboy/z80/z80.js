@@ -16,6 +16,7 @@ const {
 } = require('./flagsUtil.js');
 
 const { ADDr8rr16 } = require('./instructions/add.js');
+const { ANDn8, ANDr8 } = require('./instructions/and.js');
 const { BITn3r8 } = require('./instructions/bit.js');
 const { CALLn16 } = require('./instructions/call.js');
 const { CPn8, CPrr16 } = require('./instructions/cp.js');
@@ -105,6 +106,9 @@ Z80.prototype.fetch = fetch;
 Z80.prototype.execute = execute;
 
 Z80.prototype.ADDr8rr16 = ADDr8rr16;
+
+Z80.prototype.ANDn8 = ANDn8;
+Z80.prototype.ANDr8 = ANDr8;
 
 Z80.prototype.BITn3r8 = BITn3r8;
 
