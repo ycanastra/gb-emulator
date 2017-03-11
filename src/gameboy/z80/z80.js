@@ -24,6 +24,7 @@ const { DECr8, DECr16 } = require('./instructions/dec.js');
 const { JPn16 } = require('./instructions/jp.js');
 const { JRn8, JRZn8, JRNZn8 } = require('./instructions/jr.js');
 const { LDr8n8, LDr8r8, LDr8rr16, LDr16n16, LDrn16r8, LDrr8r8, LDrr16n8, LDrr16r8, LDDrr16r8, LDHr8rn8, LDHrn8r8, LDIr8rr16, LDIrr16r8 } = require('./instructions/ld.js');
+const { ORn8, ORr8 } = require('./instructions/or.js');
 const POPr16 = require('./instructions/pop.js');
 const PUSHr16 = require('./instructions/push.js');
 const { RET } = require('./instructions/ret.js');
@@ -136,6 +137,9 @@ Z80.prototype.LDHr8rn8 = LDHr8rn8;
 Z80.prototype.LDHrn8r8 = LDHrn8r8;
 Z80.prototype.LDIr8rr16 = LDIr8rr16;
 Z80.prototype.LDIrr16r8 = LDIrr16r8;
+
+Z80.prototype.ORn8 = ORn8;
+Z80.prototype.ORr8 = ORr8;
 
 Z80.prototype.POPr16 = POPr16;
 Z80.prototype.PUSHr16 = PUSHr16;
