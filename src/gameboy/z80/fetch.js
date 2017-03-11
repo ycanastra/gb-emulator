@@ -2,6 +2,7 @@ const opcodesData = require('./opcodes.json');
 
 function fetch() {
   this.originalpc = this.registers.pc; // only used for debugging purposes
+
   if (this.mainMemory[this.registers.pc] === 0xCB) {
     this.prefix = 0xCB;
     this.opcode = this.mainMemory[this.registers.pc + 1];

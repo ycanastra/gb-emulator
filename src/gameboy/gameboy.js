@@ -3,7 +3,7 @@ const EventEmitter = require('events');
 const Z80 = require('./z80/z80.js');
 const LCD = require('./lcd.js');
 
-const bootloader = require('./DMG_ROM.bin');
+const bootstrap = require('./DMG_ROM.bin');
 
 class GameBoy extends EventEmitter {
   constructor() {
@@ -11,7 +11,7 @@ class GameBoy extends EventEmitter {
     this.z80 = new Z80();
     this.lcd = new LCD(this.z80);
     this.z80.initializeMemory();
-    this.z80.loadBootLoader(bootloader);
+    this.z80.loadBootstrap(bootstrap);
   }
   performanceChecker() {
     let scanlineCount = 0;

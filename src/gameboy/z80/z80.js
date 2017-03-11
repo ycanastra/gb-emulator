@@ -31,6 +31,7 @@ const POPr16 = require('./instructions/pop.js');
 const PUSHr16 = require('./instructions/push.js');
 const { RET } = require('./instructions/ret.js');
 const { RLA, RLr8 } = require('./instructions/rl.js');
+const RSTf = require('./instructions/rst.js');
 const { SUBr8 } = require('./instructions/sub.js');
 const { SWAPr8 } = require('./instructions/swap.js');
 const { XORr8 } = require('./instructions/xor.js');
@@ -44,8 +45,9 @@ class Z80 {
 
     this.currentCycle = 0;
     this.mainMemory = new Array(this.MAIN_MEMORY_SIZE);
-    this.instructions = new Array(this.MAX_INSTRUCTION_SIZE);
+    this.bootstrap = new Array(0x100);
     this.masterInteruptSwitch = false;
+    this.cartridge = null;
     this.registers = {
       // accumulator, 8-bit
       a: 0,
@@ -69,19 +71,20 @@ class Z80 {
     this.originalpc = null;
     this.instructionInfo = null;
   }
-  loadBootLoader(instructions) {
+  loadBootstrap(instructions) {
     instructions.forEach((instruction, index) => {
-      this.instructions[index] = instruction;
+      this.bootstrap[index] = instruction;
       this.mainMemory[index] = instruction;
     });
   }
   loadCartridge(instructions) {
+    this.cartridge = instructions;
     instructions.forEach((instruction, index) => {
       if (index > 0x7FFF) {
         return;
       }
       if (index >= 0x100) {
-        this.instructions[index] = instruction;
+        this.bootstrap[index] = instruction;
         this.mainMemory[index] = instruction;
       }
     });
@@ -93,6 +96,11 @@ class Z80 {
     return this.mainMemory[address];
   }
   writeMemory(address, data) {
+    if (address === 0xFF50 && data !== 0x00) {
+      for (let i = 0; i < 0x100; i += 1) {
+        this.mainMemory[i] = this.cartridge[i];
+      }
+    }
     this.mainMemory[address] = data;
   }
   getCurrentCycle() {
@@ -156,6 +164,8 @@ Z80.prototype.RET = RET;
 
 Z80.prototype.RLA = RLA;
 Z80.prototype.RLr8 = RLr8;
+
+Z80.prototype.RSTf = RSTf;
 
 Z80.prototype.SUBr8 = SUBr8;
 
