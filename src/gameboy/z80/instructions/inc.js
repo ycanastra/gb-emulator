@@ -20,13 +20,6 @@ function INCr16(register1, register2) {
 
   this.registers[register1] = highByte;
   this.registers[register2] = lowByte;
-
-  if (incrementedr16 === 0) {
-    this.setZeroFlagBit();
-  } else {
-    this.clearZeroFlagBit();
-  }
-  this.clearSubtractFlagBit();
 }
 
 module.exports = {
