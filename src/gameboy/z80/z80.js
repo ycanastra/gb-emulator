@@ -20,7 +20,7 @@ const { BITn3r8 } = require('./instructions/bit.js');
 const { CPn8, CPrr16 } = require('./instructions/cp.js');
 const { CALLn16 } = require('./instructions/call.js');
 const { INCr8, INCr16 } = require('./instructions/inc.js');
-const { DECr8 } = require('./instructions/dec.js');
+const { DECr8, DECr16 } = require('./instructions/dec.js');
 const { JPn16 } = require('./instructions/jp.js');
 const { JRn8, JRZn8, JRNZn8 } = require('./instructions/jr.js');
 const { LDr8n8, LDr8r8, LDr8rr16, LDr16n16, LDrn16r8, LDrr8r8, LDrr16n8, LDrr16r8, LDDrr16r8, LDHr8rn8, LDHrn8r8, LDIr8rr16, LDIrr16r8 } = require('./instructions/ld.js');
@@ -115,6 +115,7 @@ Z80.prototype.INCr8 = INCr8;
 Z80.prototype.INCr16 = INCr16;
 
 Z80.prototype.DECr8 = DECr8;
+Z80.prototype.DECr16 = DECr16;
 
 Z80.prototype.JPn16 = JPn16;
 
