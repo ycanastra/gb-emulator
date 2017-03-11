@@ -241,6 +241,10 @@ function execute() {
         this.masterInteruptSwitch = false;
         break;
       }
+      case 0xFB: { // IE
+        this.masterInteruptSwitch = true;
+        break;
+      }
       case 0xFE: { // CP $xx
         this.CPn8(this.byte1);
         break;
