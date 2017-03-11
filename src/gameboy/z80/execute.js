@@ -10,6 +10,10 @@ function execute() {
         this.RLr8('c');
         break;
       }
+      case 0x37: { // SWAP A
+        this.SWAPr8('a');
+        break;
+      }
       default: {
         console.log('Non-implemented extended instruction:');
         console.log('PCHex: ', this.originalpc.toString(16));
