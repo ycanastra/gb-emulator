@@ -1,0 +1,28 @@
+{
+  "name": "gb-emulator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.5",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.16.0",
+    "buffer-loader": "0.0.1",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-loader": "^1.6.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.9.0",
+    "webpack": "^2.2.1"
+  },
+  "scripts": {
+    "webpack": "webpack",
+    "watch": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,120 @@
+
+const { combineBytes, seperateBytes } = require('./../bytesUtil.js');
+
+function LDr8n8(register, number) {
+  this.registers[register] = number;
+}
+
+function LDr8r8(register1, register2) {
+  this.registers[register1] = this.registers[register2];
+}
+
+function LDr16n16(hRegister, lRegister, hNumber, lNumber) {
+  // Special case for stack pointer because it's stored as one 16bit rather than two 8bit
+  if (hRegister === 's' && lRegister === 'p') {
+    const spL = this.byte1;
+    const spH = this.byte2;
+    this.registers.sp = combineBytes(spH, spL);
+  } else {
+    this.registers[hRegister] = hNumber;
+    this.registers[lRegister] = lNumber;
+  }
+}
+
+function LDrn16r8(hDstNumber, lDstNumber, srcRegister) {
+  const address = combineBytes(hDstNumber, lDstNumber);
+  this.mainMemory[address] = this.registers[srcRegister];
+}
+
+function LDrr16n8(hDestRegister, lDestRegister, srcNumber) {
+  const address = combineBytes(this.registers[hDestRegister], this.registers[lDestRegister]);
+  this.mainMemory[address] = srcNumber;
+}
+
+function LDrr16r8(hDestRegister, lDestRegister, srcRegister) {
+  const address = combineBytes(this.registers[hDestRegister], this.registers[lDestRegister]);
+  this.mainMemory[address] = this.registers[srcRegister];
+}
+
+function LDr8rr16(dstRegister, hSrcRegister, lSrcRegister) {
+  const hSrcRegVal = this.registers[hSrcRegister];
+  const lSrcRegVal = this.registers[lSrcRegister];
+  const address = combineBytes(hSrcRegVal, lSrcRegVal);
+
+  this.registers[dstRegister] = this.mainMemory[address];
+}
+
+function LDrr8r8(dstRegister, srcRegister) {
+  const address = (0xFF00 + this.registers[dstRegister]) & 0xFFFF;
+  this.mainMemory[address] = this.registers[srcRegister];
+}
+
+function LDDrr16r8(hDstRegister, lDstRegister, srcRegister) {
+  const hDstRegVal = this.registers[hDstRegister];
+  const lDstRegVal = this.registers[lDstRegister];
+
+  const address = combineBytes(hDstRegVal, lDstRegVal);
+  this.mainMemory[address] = this.registers[srcRegister];
+
+  // Decrement
+  const decVal = (address - 1) & 0xFFFF;
+  const { highByte, lowByte } = seperateBytes(decVal);
+  this.registers[hDstRegister] = highByte;
+  this.registers[lDstRegister] = lowByte;
+}
+
+function LDHr8rn8(register, number) {
+  const address = (0xFF00 + number) & 0xFFFF;
+  this.registers[register] = this.mainMemory[address];
+}
+
+function LDHrn8r8(number, register) {
+  const address = (0xFF00 + number) & 0xFFFF;
+  this.mainMemory[address] = this.registers[register];
+}
+
+function LDIr8rr16(dstRegister, hSrcRegister, lSrcRegister) {
+  const hSrcRegVal = this.registers[hSrcRegister];
+  const lSrcRegVal = this.registers[lSrcRegister];
+
+  const srcAddress = combineBytes(hSrcRegVal, lSrcRegVal);
+  this.registers[dstRegister] = this.mainMemory[srcAddress];
+
+  // Increment
+  const incVal = (srcAddress + 1) & 0xFFFF;
+  const { highByte, lowByte } = seperateBytes(incVal);
+  this.registers[hSrcRegister] = highByte;
+  this.registers[lSrcRegister] = lowByte;
+}
+
+function LDIrr16r8(hDstRegister, lDstRegister, srcRegister) {
+  const hDstRegVal = this.registers[hDstRegister];
+  const lDstRegVal = this.registers[lDstRegister];
+
+  const address = combineBytes(hDstRegVal, lDstRegVal);
+  this.mainMemory[address] = this.registers[srcRegister];
+
+  // Increment
+  const incVal = (address + 1) & 0xFFFF;
+  const { highByte, lowByte } = seperateBytes(incVal);
+  this.registers[hDstRegister] = highByte;
+  this.registers[lDstRegister] = lowByte;
+}
+
+// LD ($aabb), A
+
+module.exports = {
+  LDr8n8,
+  LDr8r8,
+  LDr8rr16,
+  LDr16n16,
+  LDrn16r8,
+  LDrr8r8,
+  LDrr16n8,
+  LDrr16r8,
+  LDDrr16r8,
+  LDHr8rn8,
+  LDHrn8r8,
+  LDIr8rr16,
+  LDIrr16r8,
+};

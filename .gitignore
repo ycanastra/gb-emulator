@@ -1,0 +1,5 @@
+app/bundle.js
+node_modules
+src/gameboy/old
+*.gb
+*.bin

@@ -1,0 +1,19 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"
+  ],
+  "rules": {
+    "react/no-unused-prop-types": [2, { "skipShapeProps": true }],
+    "no-bitwise": ["error", { "allow": ["~", "&", "|", "<<", ">>"] }],
+    "new-cap": ["error", { "capIsNew": false }],
+    "object-property-newline": 0
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
+  }
+}
