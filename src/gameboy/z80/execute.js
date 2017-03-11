@@ -40,6 +40,10 @@ function execute() {
         this.LDr8n8('b', this.byte1);
         break;
       }
+      case 0x0B: { // DEC BC
+        this.DECr16('b', 'c');
+        break;
+      }
       case 0x0C: { // INC C
         this.INCr8('c');
         break;
