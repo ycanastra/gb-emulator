@@ -7,7 +7,7 @@
   ],
   "rules": {
     "react/no-unused-prop-types": [2, { "skipShapeProps": true }],
-    "no-bitwise": ["error", { "allow": ["~", "&", "|", "<<", ">>"] }],
+    "no-bitwise": ["error", { "allow": ["~", "^", "&", "|", "<<", ">>"] }],
     "new-cap": ["error", { "capIsNew": false }],
     "object-property-newline": 0
   },
