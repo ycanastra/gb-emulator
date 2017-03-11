@@ -32,6 +32,7 @@ const PUSHr16 = require('./instructions/push.js');
 const { RET } = require('./instructions/ret.js');
 const { RLA, RLr8 } = require('./instructions/rl.js');
 const { SUBr8 } = require('./instructions/sub.js');
+const { SWAPr8 } = require('./instructions/swap.js');
 const { XORr8 } = require('./instructions/xor.js');
 
 class Z80 {
@@ -157,6 +158,8 @@ Z80.prototype.RLA = RLA;
 Z80.prototype.RLr8 = RLr8;
 
 Z80.prototype.SUBr8 = SUBr8;
+
+Z80.prototype.SWAPr8 = SWAPr8;
 
 Z80.prototype.XORr8 = XORr8;
 
