@@ -237,6 +237,10 @@ function execute() {
         this.LDrn16r8(this.byte2, this.byte1, 'a');
         break;
       }
+      case 0xE6: { // AND $xx
+        this.ANDn8(this.byte1);
+        break;
+      }
       case 0xF0: { // LD A,($xx)
         this.LDHr8rn8('a', this.byte1);
         break;
