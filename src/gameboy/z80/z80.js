@@ -15,7 +15,7 @@ const {
   clearHalfCarryFlagBit,
 } = require('./flagsUtil.js');
 
-const { ADDr8rr16 } = require('./instructions/add.js');
+const { ADDr8r8, ADDr8rr16 } = require('./instructions/add.js');
 const { ANDn8, ANDr8 } = require('./instructions/and.js');
 const { BITn3r8 } = require('./instructions/bit.js');
 const { CALLn16 } = require('./instructions/call.js');
@@ -114,6 +114,7 @@ class Z80 {
 Z80.prototype.fetch = fetch;
 Z80.prototype.execute = execute;
 
+Z80.prototype.ADDr8r8 = ADDr8r8;
 Z80.prototype.ADDr8rr16 = ADDr8rr16;
 
 Z80.prototype.ANDn8 = ANDn8;

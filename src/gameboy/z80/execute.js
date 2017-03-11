@@ -196,6 +196,10 @@ function execute() {
         this.ADDr8rr16('a', 'h', 'l');
         break;
       }
+      case 0x87: { // ADD A,A
+        this.ADDr8r8('a', 'a');
+        break;
+      }
       case 0x90: { // SUB B
         this.SUBr8('b');
         break;
