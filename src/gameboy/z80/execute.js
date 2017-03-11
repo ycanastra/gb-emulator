@@ -124,6 +124,10 @@ function execute() {
         this.LDr8n8('l', this.byte1);
         break;
       }
+      case 0x2F: { // CPL
+        this.CPL();
+        break;
+      }
       case 0x31: { // LD SP,$aabb
         this.LDr16n16('s', 'p', this.byte2, this.byte1);
         break;
