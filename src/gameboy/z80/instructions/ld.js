@@ -23,17 +23,17 @@ function LDr16n16(hRegister, lRegister, hNumber, lNumber) {
 
 function LDrn16r8(hDstNumber, lDstNumber, srcRegister) {
   const address = combineBytes(hDstNumber, lDstNumber);
-  this.mainMemory[address] = this.registers[srcRegister];
+  this.writeMemory(address, this.registers[srcRegister]);
 }
 
 function LDrr16n8(hDestRegister, lDestRegister, srcNumber) {
   const address = combineBytes(this.registers[hDestRegister], this.registers[lDestRegister]);
-  this.mainMemory[address] = srcNumber;
+  this.writeMemory(address, srcNumber);
 }
 
 function LDrr16r8(hDestRegister, lDestRegister, srcRegister) {
   const address = combineBytes(this.registers[hDestRegister], this.registers[lDestRegister]);
-  this.mainMemory[address] = this.registers[srcRegister];
+  this.writeMemory(address, this.registers[srcRegister]);
 }
 
 function LDr8rr16(dstRegister, hSrcRegister, lSrcRegister) {
@@ -46,7 +46,7 @@ function LDr8rr16(dstRegister, hSrcRegister, lSrcRegister) {
 
 function LDrr8r8(dstRegister, srcRegister) {
   const address = (0xFF00 + this.registers[dstRegister]) & 0xFFFF;
-  this.mainMemory[address] = this.registers[srcRegister];
+  this.writeMemory(address, this.registers[srcRegister]);
 }
 
 function LDDrr16r8(hDstRegister, lDstRegister, srcRegister) {
@@ -54,7 +54,7 @@ function LDDrr16r8(hDstRegister, lDstRegister, srcRegister) {
   const lDstRegVal = this.registers[lDstRegister];
 
   const address = combineBytes(hDstRegVal, lDstRegVal);
-  this.mainMemory[address] = this.registers[srcRegister];
+  this.writeMemory(address, this.registers[srcRegister]);
 
   // Decrement
   const decVal = (address - 1) & 0xFFFF;
@@ -70,7 +70,7 @@ function LDHr8rn8(register, number) {
 
 function LDHrn8r8(number, register) {
   const address = (0xFF00 + number) & 0xFFFF;
-  this.mainMemory[address] = this.registers[register];
+  this.writeMemory(address, this.registers[register]);
 }
 
 function LDIr8rr16(dstRegister, hSrcRegister, lSrcRegister) {
@@ -92,7 +92,7 @@ function LDIrr16r8(hDstRegister, lDstRegister, srcRegister) {
   const lDstRegVal = this.registers[lDstRegister];
 
   const address = combineBytes(hDstRegVal, lDstRegVal);
-  this.mainMemory[address] = this.registers[srcRegister];
+  this.writeMemory(address, this.registers[srcRegister]);
 
   // Increment
   const incVal = (address + 1) & 0xFFFF;
@@ -100,8 +100,6 @@ function LDIrr16r8(hDstRegister, lDstRegister, srcRegister) {
   this.registers[hDstRegister] = highByte;
   this.registers[lDstRegister] = lowByte;
 }
-
-// LD ($aabb), A
 
 module.exports = {
   LDr8n8,
