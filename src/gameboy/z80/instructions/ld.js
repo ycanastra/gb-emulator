@@ -5,8 +5,8 @@ function LDr8n8(register, number) {
   this.registers[register] = number;
 }
 
-function LDr8r8(register1, register2) {
-  this.registers[register1] = this.registers[register2];
+function LDr8r8(dstRegister, srcRegister) {
+  this.registers[dstRegister] = this.registers[srcRegister];
 }
 
 function LDr16n16(hRegister, lRegister, hNumber, lNumber) {
@@ -26,13 +26,13 @@ function LDrn16r8(hDstNumber, lDstNumber, srcRegister) {
   this.writeMemory(address, this.registers[srcRegister]);
 }
 
-function LDrr16n8(hDestRegister, lDestRegister, srcNumber) {
-  const address = combineBytes(this.registers[hDestRegister], this.registers[lDestRegister]);
+function LDrr16n8(hDstRegister, lDstRegister, srcNumber) {
+  const address = combineBytes(this.registers[hDstRegister], this.registers[lDstRegister]);
   this.writeMemory(address, srcNumber);
 }
 
-function LDrr16r8(hDestRegister, lDestRegister, srcRegister) {
-  const address = combineBytes(this.registers[hDestRegister], this.registers[lDestRegister]);
+function LDrr16r8(hDstRegister, lDstRegister, srcRegister) {
+  const address = combineBytes(this.registers[hDstRegister], this.registers[lDstRegister]);
   this.writeMemory(address, this.registers[srcRegister]);
 }
 

@@ -14,13 +14,28 @@ class GameBoy extends EventEmitter {
     this.z80.loadBootstrap(bootstrap);
   }
   performanceChecker() {
+    let debug = false;
     let scanlineCount = 0;
     let renderScreenCount = 0;
     while (true) {
-      if (this.z80.registers.pc > 0x0100) {
-        console.log(this.z80.getCurrentCycle());
-        console.log('done');
+      if (this.z80.registers.pc === 0x27F3) {
+        debug = true;
+        this.z80.printRegisters();
+        // this.z80.fetch();
+        // this.z80.execute();
+        //         this.z80.printRegisters();
+        // console.log('somethingf went wrong');
         break;
+      }
+      // if (this.z80.registers.pc > 0x0100) {
+      //   console.log(this.z80.registers.pc.toString(16));
+      // }
+      // if (this.z80.registers.pc === 0x0293) {
+      //   console.log(this.z80.registers.pc.toString(16));
+      // }
+      if (debug) {
+        // this.z80.printRegisters();
+        // debugger;
       }
       this.z80.fetch();
       this.z80.execute();
@@ -35,7 +50,9 @@ class GameBoy extends EventEmitter {
   }
   start() {
     const run = () => {
-      if (this.z80.registers.pc > 0x0300) {
+      if (this.z80.registers.pc > 0x0295) {
+        console.log(this.z80.registers.pc.toString(16));
+        this.z80.printRegisters();
         console.log('done');
         return;
       }

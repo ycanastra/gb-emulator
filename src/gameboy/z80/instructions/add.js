@@ -1,4 +1,4 @@
-const { combineBytes } = require('./../bytesUtil.js');
+const { combineBytes, seperateBytes } = require('./../bytesUtil.js');
 
 function ADDr8r8(dstRegister, srcRegister) {
   const addVal = this.registers[dstRegister] + this.registers[srcRegister];
@@ -38,7 +38,26 @@ function ADDr8rr16(register1, hRegister2, lRegister2) {
   }
 }
 
+function ADDr16r16(hDstReg, lDstReg, hSrcReg, lSrcReg) {
+  const dstRegVal = combineBytes(this.registers[hDstReg], this.registers[lDstReg]);
+  const srcRegVal = combineBytes(this.registers[hSrcReg], this.registers[lSrcReg]);
+
+  const addVal = dstRegVal + srcRegVal;
+  const { highByte, lowByte } = seperateBytes(addVal & 0xFFFF);
+
+  this.registers[hDstReg] = highByte;
+  this.registers[lDstReg] = lowByte;
+
+  this.clearSubtractFlagBit();
+  if (addVal > 0xFFFF) {
+    this.setCarryFlagBit();
+  } else {
+    this.clearCarryFlagBit();
+  }
+}
+
 module.exports = {
   ADDr8r8,
   ADDr8rr16,
+  ADDr16r16,
 };

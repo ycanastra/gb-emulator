@@ -14,7 +14,7 @@ function DECr8(register) {
 
 function DECr16(hRegister, lRegister) {
   const value = combineBytes(this.registers[hRegister], this.registers[lRegister]);
-  const decrementedVal = (value - 1) & 0xFF;
+  const decrementedVal = (value - 1) & 0xFFFF;
 
   const { highByte, lowByte } = seperateBytes(decrementedVal);
   this.registers[hRegister] = highByte;

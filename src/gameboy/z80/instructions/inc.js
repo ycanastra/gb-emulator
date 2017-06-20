@@ -12,14 +12,13 @@ function INCr8(register) {
   this.clearSubtractFlagBit();
 }
 
-function INCr16(register1, register2) {
-  const reg1Value = this.registers[register1];
-  const reg2Value = this.registers[register2];
-  const incrementedr16 = combineBytes(reg1Value, reg2Value) + 1;
+function INCr16(hRegister, lRegister) {
+  const value = combineBytes(this.registers[hRegister], this.registers[lRegister]);
+  const incrementedr16 = (value + 1) & 0xFFFF;
   const { highByte, lowByte } = seperateBytes(incrementedr16);
 
-  this.registers[register1] = highByte;
-  this.registers[register2] = lowByte;
+  this.registers[hRegister] = highByte;
+  this.registers[lRegister] = lowByte;
 }
 
 module.exports = {
