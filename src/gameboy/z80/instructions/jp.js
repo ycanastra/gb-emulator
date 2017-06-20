@@ -9,7 +9,7 @@ function JPn16(hNumber, lNumber) {
 
 function JPrr16(hRegister, lRegister) {
   const address = combineBytes(this.registers[hRegister], this.registers[lRegister]);
-  this.registers.pc = this.readMemory(address);
+  this.registers.pc = address;
 }
 
 module.exports = {
