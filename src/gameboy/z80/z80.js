@@ -15,7 +15,7 @@ const {
   clearHalfCarryFlagBit,
 } = require('./flagsUtil.js');
 
-const { ADDr8r8, ADDr8rr16 } = require('./instructions/add.js');
+const { ADDr8r8, ADDr8rr16, ADDr16r16 } = require('./instructions/add.js');
 const { ANDn8, ANDr8 } = require('./instructions/and.js');
 const { BITn3r8 } = require('./instructions/bit.js');
 const { CALLn16 } = require('./instructions/call.js');
@@ -23,9 +23,12 @@ const { CPn8, CPrr16 } = require('./instructions/cp.js');
 const CPL = require('./instructions/cpl.js');
 const { INCr8, INCr16 } = require('./instructions/inc.js');
 const { DECr8, DECr16 } = require('./instructions/dec.js');
-const { JPn16 } = require('./instructions/jp.js');
+const { JPn16, JPrr16 } = require('./instructions/jp.js');
 const { JRn8, JRZn8, JRNZn8 } = require('./instructions/jr.js');
-const { LDr8n8, LDr8r8, LDr8rr16, LDr16n16, LDrn16r8, LDrr8r8, LDrr16n8, LDrr16r8, LDDrr16r8, LDHr8rn8, LDHrn8r8, LDIr8rr16, LDIrr16r8 } = require('./instructions/ld.js');
+const {
+  LDr8n8, LDr8r8, LDr8rr16, LDr16n16, LDrn16r8, LDrr8r8,
+  LDrr16n8, LDrr16r8, LDDrr16r8, LDHr8rn8, LDHrn8r8, LDIr8rr16, LDIrr16r8,
+} = require('./instructions/ld.js');
 const { ORn8, ORr8 } = require('./instructions/or.js');
 const POPr16 = require('./instructions/pop.js');
 const PUSHr16 = require('./instructions/push.js');
@@ -70,6 +73,19 @@ class Z80 {
     this.byte2 = null;
     this.originalpc = null;
     this.instructionInfo = null;
+  }
+  printRegisters() {
+    console.log(`af= ${this.registers.a.toString(16).padStart(2, '0')}${this.registers.f.toString(16).padStart(2, '0')}`);
+    console.log(`bc= ${this.registers.b.toString(16).padStart(2, '0')}${this.registers.c.toString(16).padStart(2, '0')}`);
+    console.log(`de= ${this.registers.d.toString(16).padStart(2, '0')}${this.registers.e.toString(16).padStart(2, '0')}`);
+    console.log(`hl= ${this.registers.h.toString(16).padStart(2, '0')}${this.registers.l.toString(16).padStart(2, '0')}`);
+    console.log(`sp= ${this.registers.sp.toString(16).padStart(4, '0')}`);
+    console.log(`pc= ${this.registers.pc.toString(16).padStart(4, '0')}`);
+
+    console.log(`z= ${this.getZeroFlagBit()}`);
+    console.log(`n= ${this.getSubtractFlagBit()}`);
+    console.log(`h= ${this.getHalfCarryFlagBit()}`);
+    console.log(`c= ${this.getCarryFlagBit()}`);
   }
   loadBootstrap(instructions) {
     instructions.forEach((instruction, index) => {
@@ -116,6 +132,7 @@ Z80.prototype.execute = execute;
 
 Z80.prototype.ADDr8r8 = ADDr8r8;
 Z80.prototype.ADDr8rr16 = ADDr8rr16;
+Z80.prototype.ADDr16r16 = ADDr16r16;
 
 Z80.prototype.ANDn8 = ANDn8;
 Z80.prototype.ANDr8 = ANDr8;
@@ -136,6 +153,7 @@ Z80.prototype.DECr8 = DECr8;
 Z80.prototype.DECr16 = DECr16;
 
 Z80.prototype.JPn16 = JPn16;
+Z80.prototype.JPrr16 = JPrr16;
 
 Z80.prototype.JRn8 = JRn8;
 Z80.prototype.JRZn8 = JRZn8;

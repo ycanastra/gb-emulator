@@ -14,13 +14,17 @@ class GameBoy extends EventEmitter {
     this.z80.loadBootstrap(bootstrap);
   }
   performanceChecker() {
+    let debug = false;
     let scanlineCount = 0;
     let renderScreenCount = 0;
     while (true) {
-      if (this.z80.registers.pc > 0x0100) {
-        console.log(this.z80.getCurrentCycle());
-        console.log('done');
-        break;
+      if (this.z80.registers.pc === 0x031F) {
+        debug = true;
+        // console.log('somethingf went wrong');
+        // break;
+      }
+      if (debug) {
+        this.z80.printRegisters();
       }
       this.z80.fetch();
       this.z80.execute();
@@ -44,6 +48,9 @@ class GameBoy extends EventEmitter {
       let scanlineCount = ~~(this.z80.getCurrentCycle() / 465);
       // ~~ used instead of parseInt for performance gains
       while (renderScreenCount + 1 !== ~~(this.z80.getCurrentCycle() / 69905)) {
+        if (this.z80.registers.pc === 0x187) {
+          this.z80.printRegisters();
+        }
         this.z80.fetch();
         this.z80.execute();
         if (scanlineCount + 1 === ~~(this.z80.getCurrentCycle() / 465)) {

@@ -96,7 +96,12 @@ class LCD {
       3: getBit(bgPalleteData, 7) << 1 + getBit(bgPalleteData, 6),
     };
 
-    const colors = { 0: 255, 1: 170, 2: 85, 3: 0 };
+    const colors = {
+      0: 255,
+      1: 170,
+      2: 85,
+      3: 0,
+    };
 
     for (let i = 0; i < 160; i += 1) {
       const pixelRow = (this.currentLine + scrollY) & 0xFF;

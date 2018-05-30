@@ -84,6 +84,10 @@ function execute() {
         this.JRn8(this.byte1);
         break;
       }
+      case 0x19: { // ADD HL,DE
+        this.ADDr16r16('h', 'l', 'd', 'e');
+        break;
+      }
       case 0x1A: { // LD A,(DE)
         this.LDr8rr16('a', 'd', 'e');
         break;
@@ -160,8 +164,36 @@ function execute() {
         this.LDr8r8('c', 'a');
         break;
       }
+      case 0x56: { // LD D,(HL)
+        this.LDr8rr16('d', 'h', 'l');
+        break;
+      }
       case 0x57: { // LD D,A
         this.LDr8r8('d', 'a');
+        break;
+      }
+      case 0x58: { // LD E,B
+        this.LDr8r8('e', 'b');
+        break;
+      }
+      case 0x59: { // LD E,C
+        this.LDr8r8('e', 'c');
+        break;
+      }
+      case 0x5A: { // LD E,D
+        this.LDr8r8('e', 'd');
+        break;
+      }
+      case 0x5B: { // LD E,E
+        this.LDr8r8('e', 'e');
+        break;
+      }
+      case 0x5E: { // LD E,(HL)
+        this.LDr8rr16('e', 'h', 'l');
+        break;
+      }
+      case 0x5F: { // LD E,A
+        this.LDr8r8('e', 'a');
         break;
       }
       case 0x67: { // LD H,A
@@ -253,8 +285,16 @@ function execute() {
         this.CALLn16(this.byte2, this.byte1);
         break;
       }
+      case 0xD5: { // PUSH DE
+        this.PUSHr16('d', 'e');
+        break;
+      }
       case 0xE0: { // LD ($xx),A
         this.LDHrn8r8(this.byte1, 'a');
+        break;
+      }
+      case 0xE1: { // POP HL
+        this.POPr16('h', 'l');
         break;
       }
       case 0xE2: { // LD (C),A
@@ -263,6 +303,10 @@ function execute() {
       }
       case 0xE6: { // AND $xx
         this.ANDn8(this.byte1);
+        break;
+      }
+      case 0xE9: { // JP (HL)
+        this.JPrr16('h', 'l');
         break;
       }
       case 0xEA: { // LD ($aabb), A
@@ -287,6 +331,10 @@ function execute() {
       }
       case 0xFE: { // CP $xx
         this.CPn8(this.byte1);
+        break;
+      }
+      case 0xFF: { // RST 38H
+        this.RSTf(0x38);
         break;
       }
       default: {
