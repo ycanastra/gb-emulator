@@ -3,3 +3,4 @@ node_modules
 src/gameboy/old
 *.gb
 *.bin
+.DS_Store
