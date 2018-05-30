@@ -1,4 +1,4 @@
-app/bundle.js
+dist/bundle.js
 node_modules
 src/gameboy/old
 *.gb
