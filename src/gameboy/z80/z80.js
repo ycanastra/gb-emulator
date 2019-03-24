@@ -22,16 +22,18 @@ const { CALLn16 } = require('./instructions/call.js');
 const { CPn8, CPrr16 } = require('./instructions/cp.js');
 const CPL = require('./instructions/cpl.js');
 const { INCr8, INCr16 } = require('./instructions/inc.js');
-const { DECr8, DECr16 } = require('./instructions/dec.js');
-const { JPn16, JPrr16 } = require('./instructions/jp.js');
+const { DECr8, DECr16, DECrr16 } = require('./instructions/dec.js');
+const { JPn16, JPrr16, JPZn16 } = require('./instructions/jp.js');
 const { JRn8, JRZn8, JRNZn8 } = require('./instructions/jr.js');
-const { LDr8n8, LDr8r8, LDr8rr16, LDr16n16, LDrn16r8, LDrr8r8, LDrr16n8, LDrr16r8, LDDrr16r8, LDHr8rn8, LDHrn8r8, LDIr8rr16, LDIrr16r8 } = require('./instructions/ld.js');
+const { LDr8n8, LDr8r8, LDr8rn16, LDr8rr16, LDr16n16, LDrn16r8, LDrr8r8, LDrr16n8, LDrr16r8, LDDrr16r8, LDHr8rn8, LDHrn8r8, LDIr8rr16, LDIrr16r8 } = require('./instructions/ld.js');
 const { ORn8, ORr8 } = require('./instructions/or.js');
 const POPr16 = require('./instructions/pop.js');
 const PUSHr16 = require('./instructions/push.js');
-const { RET } = require('./instructions/ret.js');
+const RESn3r8 = require('./instructions/res.js');
+const { RET, RETZ } = require('./instructions/ret.js');
 const { RLA, RLr8 } = require('./instructions/rl.js');
 const RSTf = require('./instructions/rst.js');
+const SLA = require('./instructions/sla.js');
 const { SUBr8 } = require('./instructions/sub.js');
 const { SWAPr8 } = require('./instructions/swap.js');
 const { XORr8 } = require('./instructions/xor.js');
@@ -72,12 +74,12 @@ class Z80 {
     this.instructionInfo = null;
   }
   printRegisters() {
-    console.log(`af= ${this.registers.a.toString(16).padStart(2, '0')}${this.registers.f.toString(16).padStart(2, '0')}`);
-    console.log(`bc= ${this.registers.b.toString(16).padStart(2, '0')}${this.registers.c.toString(16).padStart(2, '0')}`);
-    console.log(`de= ${this.registers.d.toString(16).padStart(2, '0')}${this.registers.e.toString(16).padStart(2, '0')}`);
-    console.log(`hl= ${this.registers.h.toString(16).padStart(2, '0')}${this.registers.l.toString(16).padStart(2, '0')}`);
-    console.log(`sp= ${this.registers.sp.toString(16).padStart(4, '0')}`);
-    console.log(`pc= ${this.registers.pc.toString(16).padStart(4, '0')}`);
+    console.log(`af= ${this.registers.a.toString(16).toUpperCase().padStart(2, '0')}${this.registers.f.toString(16).toUpperCase().padStart(2, '0')}`);
+    console.log(`bc= ${this.registers.b.toString(16).toUpperCase().padStart(2, '0')}${this.registers.c.toString(16).toUpperCase().padStart(2, '0')}`);
+    console.log(`de= ${this.registers.d.toString(16).toUpperCase().padStart(2, '0')}${this.registers.e.toString(16).toUpperCase().padStart(2, '0')}`);
+    console.log(`hl= ${this.registers.h.toString(16).toUpperCase().padStart(2, '0')}${this.registers.l.toString(16).toUpperCase().padStart(2, '0')}`);
+    console.log(`sp= ${this.registers.sp.toString(16).toUpperCase().padStart(4, '0')}`);
+    console.log(`pc= ${this.registers.pc.toString(16).toUpperCase().padStart(4, '0')}`);
 
     console.log(`z= ${this.getZeroFlagBit()}`);
     console.log(`n= ${this.getSubtractFlagBit()}`);
@@ -109,6 +111,10 @@ class Z80 {
     return this.mainMemory[address];
   }
   writeMemory(address, data) {
+    if (address === 0xFF00) {
+      this.mainMemory[address] = 0xFF;
+      return;
+    }
     if (address === 0xFF50 && data !== 0x00) {
       for (let i = 0; i < 0x100; i += 1) {
         this.mainMemory[i] = this.cartridge[i];
@@ -148,9 +154,11 @@ Z80.prototype.INCr16 = INCr16;
 
 Z80.prototype.DECr8 = DECr8;
 Z80.prototype.DECr16 = DECr16;
+Z80.prototype.DECrr16 = DECrr16;
 
 Z80.prototype.JPn16 = JPn16;
 Z80.prototype.JPrr16 = JPrr16;
+Z80.prototype.JPZn16 = JPZn16;
 
 Z80.prototype.JRn8 = JRn8;
 Z80.prototype.JRZn8 = JRZn8;
@@ -158,6 +166,7 @@ Z80.prototype.JRNZn8 = JRNZn8;
 
 Z80.prototype.LDr8n8 = LDr8n8;
 Z80.prototype.LDr8r8 = LDr8r8;
+Z80.prototype.LDr8rn16 = LDr8rn16;
 Z80.prototype.LDr8rr16 = LDr8rr16;
 Z80.prototype.LDr16n16 = LDr16n16;
 Z80.prototype.LDrn16r8 = LDrn16r8;
@@ -177,11 +186,16 @@ Z80.prototype.POPr16 = POPr16;
 Z80.prototype.PUSHr16 = PUSHr16;
 
 Z80.prototype.RET = RET;
+Z80.prototype.RETZ = RETZ;
+
+Z80.prototype.RESn3r8 = RESn3r8;
 
 Z80.prototype.RLA = RLA;
 Z80.prototype.RLr8 = RLr8;
 
 Z80.prototype.RSTf = RSTf;
+
+Z80.prototype.SLA = SLA;
 
 Z80.prototype.SUBr8 = SUBr8;
 

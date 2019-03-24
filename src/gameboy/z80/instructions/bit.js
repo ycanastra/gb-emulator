@@ -15,7 +15,6 @@ function BITn3r8(number, register) {
   this.clearHalfCarryFlagBit();
 }
 
-
 module.exports = {
   BITn3r8,
 };

@@ -21,7 +21,22 @@ function DECr16(hRegister, lRegister) {
   this.registers[lRegister] = lowByte;
 }
 
+function DECrr16(hRegister, lRegister) {
+  const address = combineBytes(this.registers[hRegister], this.registers[lRegister]);
+
+  const decrementedVal = (this.mainMemory[address] - 1) & 0xFF;
+  this.writeMemory(address, decrementedVal);
+
+  if (decrementedVal === 0) {
+    this.setZeroFlagBit();
+  } else {
+    this.clearZeroFlagBit();
+  }
+  this.setSubtractFlagBit();
+}
+
 module.exports = {
   DECr8,
   DECr16,
+  DECrr16,
 };

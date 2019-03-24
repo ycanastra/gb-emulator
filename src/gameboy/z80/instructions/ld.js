@@ -36,6 +36,11 @@ function LDrr16r8(hDstRegister, lDstRegister, srcRegister) {
   this.writeMemory(address, this.registers[srcRegister]);
 }
 
+function LDr8rn16(dstRegister, hSrcNumber, lSrcNumber) {
+  const address = combineBytes(hSrcNumber, lSrcNumber);
+  this.registers[dstRegister] = this.mainMemory[address];
+}
+
 function LDr8rr16(dstRegister, hSrcRegister, lSrcRegister) {
   const hSrcRegVal = this.registers[hSrcRegister];
   const lSrcRegVal = this.registers[lSrcRegister];
@@ -104,6 +109,7 @@ function LDIrr16r8(hDstRegister, lDstRegister, srcRegister) {
 module.exports = {
   LDr8n8,
   LDr8r8,
+  LDr8rn16,
   LDr8rr16,
   LDr16n16,
   LDrn16r8,
