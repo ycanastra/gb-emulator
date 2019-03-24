@@ -1,25 +1,21 @@
 const path = require('path');
 
 const config = {
-  context: __dirname,
-  entry: ['babel-polyfill', './src/index'],
+  entry: './src/index',
   output: {
-    path: path.join(__dirname, './app'),
-    filename: 'bundle.js'
-  },
-  resolve: {
-    extensions: ['.js', '.jsx']
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
     rules: [
       {
         enforce: 'pre',
-        test: /\.jsx?$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         loader: 'eslint-loader',
       },
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
       },

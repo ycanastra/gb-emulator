@@ -25,7 +25,11 @@ const { INCr8, INCr16 } = require('./instructions/inc.js');
 const { DECr8, DECr16, DECrr16 } = require('./instructions/dec.js');
 const { JPn16, JPrr16, JPZn16 } = require('./instructions/jp.js');
 const { JRn8, JRZn8, JRNZn8 } = require('./instructions/jr.js');
-const { LDr8n8, LDr8r8, LDr8rn16, LDr8rr16, LDr16n16, LDrn16r8, LDrr8r8, LDrr16n8, LDrr16r8, LDDrr16r8, LDHr8rn8, LDHrn8r8, LDIr8rr16, LDIrr16r8 } = require('./instructions/ld.js');
+const {
+  LDr8n8, LDr8r8, LDr8rn16, LDr8rr16, LDr16n16,
+  LDrn16r8, LDrr8r8, LDrr16n8, LDrr16r8, LDDrr16r8,
+  LDHr8rn8, LDHrn8r8, LDIr8rr16, LDIrr16r8,
+} = require('./instructions/ld.js');
 const { ORn8, ORr8 } = require('./instructions/or.js');
 const POPr16 = require('./instructions/pop.js');
 const PUSHr16 = require('./instructions/push.js');

@@ -14,8 +14,8 @@ function fetch() {
   }
 
   const opcodeInfo = (this.prefix === null)
-                     ? opcodesData[this.opcode]
-                     : opcodesData[this.prefix][this.opcode];
+    ? opcodesData[this.opcode]
+    : opcodesData[this.prefix][this.opcode];
 
   const numBytesToRead = (this.prefix === 0xCB) ? opcodeInfo.bytes - 2 : opcodeInfo.bytes - 1;
 

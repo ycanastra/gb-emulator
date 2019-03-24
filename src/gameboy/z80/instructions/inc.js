@@ -1,4 +1,3 @@
-
 const { combineBytes, seperateBytes } = require('./../bytesUtil.js');
 
 function INCr8(register) {

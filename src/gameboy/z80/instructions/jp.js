@@ -6,7 +6,7 @@ function JPn16(hNumber, lNumber) {
 
 function JPrr16(hRegister, lRegister) {
   const address = combineBytes(this.registers[hRegister], this.registers[lRegister]);
-  this.registers.pc = address;
+  this.registers.pc = this.readMemory(address);
 }
 
 function JPZn16(hNumber, lNumber) {
