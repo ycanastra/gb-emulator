@@ -1,4 +1,5 @@
 const path = require('path');
+const gbEmuConfig = require('./gb-emulator.config');
 
 const config = {
   mode: 'development',
@@ -30,7 +31,7 @@ const config = {
   },
   resolve: {
     alias: {
-      rom: path.resolve(__dirname, 'your/rom/path/here'),
+      rom: path.resolve(__dirname, gbEmuConfig.romPath),
     },
   },
   devServer: {
