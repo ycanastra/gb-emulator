@@ -1,5 +1,4 @@
 dist/bundle.js
 node_modules
-src/gameboy/old
 *.gb
 .DS_Store
