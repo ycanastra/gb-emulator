@@ -11,8 +11,6 @@
     "comma-dangle": ["error", "always-multiline"]
   },
   "env": {
-    "browser": true,
-    "node": true,
-    "jasmine": true
+    "browser": true
   }
 }
