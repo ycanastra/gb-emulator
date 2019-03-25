@@ -1,5 +1,5 @@
 import GameBoy from './gameboy/gameboy';
-import cartridge from './../roms/Tetris (World).gb';
+import cartridge from 'rom';
 
 const gameBoy = new GameBoy();
 gameBoy.loadCartridge(cartridge);

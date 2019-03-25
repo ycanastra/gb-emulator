@@ -28,6 +28,11 @@ const config = {
       },
     ],
   },
+  resolve: {
+    alias: {
+      rom: path.resolve(__dirname, 'your/rom/path/here'),
+    },
+  },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,

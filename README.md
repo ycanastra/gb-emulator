@@ -7,7 +7,7 @@ $ cd gb-emulator
 $ npm i
 ```
 
-Specify the path of the rom file to be loaded in `./src/index.js`.
+Specify the path of the rom file to be loaded in `./webpack.config.js:33`.
 
 Then run:
 ```sh
