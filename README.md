@@ -7,7 +7,7 @@ $ cd gb-emulator
 $ npm i
 ```
 
-Specify the path of the rom file to be loaded in `./gb-emulator.config.js`.
+Specify the path of the rom file to be loaded in `./gb-emulator.config.json`.
 
 Then run:
 ```sh
