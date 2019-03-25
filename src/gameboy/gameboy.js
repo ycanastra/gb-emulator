@@ -14,6 +14,7 @@ class GameBoy extends EventEmitter {
     this.z80.initializeMemory();
     this.z80.loadBootstrap(bootstrap);
   }
+  // Only for debugging
   performanceChecker() {
     let scanlineCount = 0;
     let renderScreenCount = 0;
