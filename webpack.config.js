@@ -1,11 +1,13 @@
 const path = require('path');
 
 const config = {
+  mode: 'development',
   entry: './src/index',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -23,9 +25,14 @@ const config = {
         test: /\.(bin)|(gb)$/,
         exclude: /node_modules/,
         loader: 'buffer-loader',
-      }
+      },
     ],
-  }
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 9000,
+  },
 };
 
 module.exports = config;
