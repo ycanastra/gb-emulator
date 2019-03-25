@@ -42,6 +42,10 @@ const { SUBr8 } = require('./instructions/sub.js');
 const { SWAPr8 } = require('./instructions/swap.js');
 const { XORr8 } = require('./instructions/xor.js');
 
+const formatRegister = (register) => {
+  return register.toString(16).toUpperCase().padStart(2, '0');
+};
+
 class Z80 {
   constructor() {
     this.MAIN_MEMORY_SIZE = 0x10000; // 65536
@@ -78,17 +82,20 @@ class Z80 {
     this.instructionInfo = null;
   }
   printRegisters() {
-    console.log(`af= ${this.registers.a.toString(16).toUpperCase().padStart(2, '0')}${this.registers.f.toString(16).toUpperCase().padStart(2, '0')}`);
-    console.log(`bc= ${this.registers.b.toString(16).toUpperCase().padStart(2, '0')}${this.registers.c.toString(16).toUpperCase().padStart(2, '0')}`);
-    console.log(`de= ${this.registers.d.toString(16).toUpperCase().padStart(2, '0')}${this.registers.e.toString(16).toUpperCase().padStart(2, '0')}`);
-    console.log(`hl= ${this.registers.h.toString(16).toUpperCase().padStart(2, '0')}${this.registers.l.toString(16).toUpperCase().padStart(2, '0')}`);
-    console.log(`sp= ${this.registers.sp.toString(16).toUpperCase().padStart(4, '0')}`);
-    console.log(`pc= ${this.registers.pc.toString(16).toUpperCase().padStart(4, '0')}`);
+    /* eslint-disable no-console */
+    console.log('Printing final register values:');
+    console.log(`af= 0x${formatRegister(this.registers.a)}${formatRegister(this.registers.f)}`);
+    console.log(`bc= 0x${formatRegister(this.registers.b)}${formatRegister(this.registers.c)}`);
+    console.log(`de= 0x${formatRegister(this.registers.d)}${formatRegister(this.registers.e)}`);
+    console.log(`hl= 0x${formatRegister(this.registers.h)}${formatRegister(this.registers.l)}`);
+    console.log(`sp= 0x${this.registers.sp.toString(16).toUpperCase().padStart(4, '0')}`);
+    console.log(`pc= 0x${this.registers.pc.toString(16).toUpperCase().padStart(4, '0')}`);
 
-    console.log(`z= ${this.getZeroFlagBit()}`);
-    console.log(`n= ${this.getSubtractFlagBit()}`);
-    console.log(`h= ${this.getHalfCarryFlagBit()}`);
-    console.log(`c= ${this.getCarryFlagBit()}`);
+    console.log(`z=  0b${this.getZeroFlagBit()}`);
+    console.log(`n=  0b${this.getSubtractFlagBit()}`);
+    console.log(`h=  0b${this.getHalfCarryFlagBit()}`);
+    console.log(`c=  0b${this.getCarryFlagBit()}`);
+    /* eslint-enable no-console */
   }
   loadBootstrap(instructions) {
     instructions.forEach((instruction, index) => {

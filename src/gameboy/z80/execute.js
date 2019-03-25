@@ -23,11 +23,13 @@ function execute() {
         break;
       }
       default: {
+        /* eslint-disable no-console */
         console.log('Non-implemented extended instruction:');
         console.log('PCHex: ', `0x${this.originalpc.toString(16).padStart(4, '0').toUpperCase()}`);
         console.log('PrefixHex: ', `0x${this.prefix.toString(16).padStart(2, '0').toUpperCase()}`);
         console.log('OpcodeHex: ', `0x${this.opcode.toString(16).padStart(2, '0').toUpperCase()}`);
         console.log();
+        /* eslint-enable no-console */
         break;
       }
     }
@@ -320,11 +322,6 @@ function execute() {
         this.JPZn16(this.byte2, this.byte1);
         break;
       }
-      case 0xCB: {
-        // Program should never go here
-        console.log('Something went wrong if you see this message');
-        break;
-      }
       case 0xCD: { // CALL $aabb
         this.CALLn16(this.byte2, this.byte1);
         break;
@@ -402,10 +399,12 @@ function execute() {
         break;
       }
       default: {
+        /* eslint-disable no-console */
         console.log('Non-implemented instruction:');
         console.log('PCHex: ', `0x${this.originalpc.toString(16).padStart(4, '0').toUpperCase()}`);
         console.log('OpcodeHex: ', `0x${this.opcode.toString(16).padStart(2, '0').toUpperCase()}`);
         console.log();
+        /* eslint-enable no-console */
         break;
       }
     }
