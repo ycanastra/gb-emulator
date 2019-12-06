@@ -1,5 +1,5 @@
 
-const { combineBytes } = require('./../bytesUtil.js');
+import { combineBytes } from './../bytesUtil.js';
 
 function CPn8(number) {
   const cpValue = (this.registers.a - number) & 0xFF;
@@ -36,7 +36,7 @@ function CPrr16(hRegister, lRegister) {
   this.setSubtractFlagBit();
 }
 
-module.exports = {
+export {
   CPn8,
   CPrr16,
 };

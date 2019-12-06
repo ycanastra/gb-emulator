@@ -1,6 +1,6 @@
-const fetch = require('./fetch.js');
-const execute = require('./execute.js');
-const {
+import fetch from './fetch.js';
+import execute from './execute.js';
+import {
   getZeroFlagBit,
   getCarryFlagBit,
   getSubtractFlagBit,
@@ -13,34 +13,34 @@ const {
   clearCarryFlagBit,
   clearSubtractFlagBit,
   clearHalfCarryFlagBit,
-} = require('./flagsUtil.js');
+} from './flagsUtil.js';
 
-const { ADDr8r8, ADDr8rr16, ADDr16r16 } = require('./instructions/add.js');
-const { ANDn8, ANDr8 } = require('./instructions/and.js');
-const { BITn3r8 } = require('./instructions/bit.js');
-const { CALLn16 } = require('./instructions/call.js');
-const { CPn8, CPrr16 } = require('./instructions/cp.js');
-const CPL = require('./instructions/cpl.js');
-const { INCr8, INCr16 } = require('./instructions/inc.js');
-const { DECr8, DECr16, DECrr16 } = require('./instructions/dec.js');
-const { JPn16, JPrr16, JPZn16 } = require('./instructions/jp.js');
-const { JRn8, JRZn8, JRNZn8 } = require('./instructions/jr.js');
-const {
+import { ADDr8r8, ADDr8rr16, ADDr16r16 } from './instructions/add.js';
+import { ANDn8, ANDr8 } from './instructions/and.js';
+import { BITn3r8 } from './instructions/bit.js';
+import { CALLn16 } from './instructions/call.js';
+import { CPn8, CPrr16 } from './instructions/cp.js';
+import CPL from './instructions/cpl.js';
+import { INCr8, INCr16 } from './instructions/inc.js';
+import { DECr8, DECr16, DECrr16 } from './instructions/dec.js';
+import { JPn16, JPrr16, JPZn16 } from './instructions/jp.js';
+import { JRn8, JRZn8, JRNZn8 } from './instructions/jr.js';
+import {
   LDr8n8, LDr8r8, LDr8rn16, LDr8rr16, LDr16n16,
   LDrn16r8, LDrr8r8, LDrr16n8, LDrr16r8, LDDrr16r8,
   LDHr8rn8, LDHrn8r8, LDIr8rr16, LDIrr16r8,
-} = require('./instructions/ld.js');
-const { ORn8, ORr8 } = require('./instructions/or.js');
-const POPr16 = require('./instructions/pop.js');
-const PUSHr16 = require('./instructions/push.js');
-const RESn3r8 = require('./instructions/res.js');
-const { RET, RETZ } = require('./instructions/ret.js');
-const { RLA, RLr8 } = require('./instructions/rl.js');
-const RSTf = require('./instructions/rst.js');
-const SLA = require('./instructions/sla.js');
-const { SUBr8 } = require('./instructions/sub.js');
-const { SWAPr8 } = require('./instructions/swap.js');
-const { XORr8 } = require('./instructions/xor.js');
+} from './instructions/ld.js';
+import { ORn8, ORr8 } from './instructions/or.js';
+import POPr16 from './instructions/pop.js';
+import PUSHr16 from './instructions/push.js';
+import RESn3r8 from './instructions/res.js';
+import { RET, RETZ } from './instructions/ret.js';
+import { RLA, RLr8 } from './instructions/rl.js';
+import RSTf from './instructions/rst.js';
+import SLA from './instructions/sla.js';
+import { SUBr8 } from './instructions/sub.js';
+import { SWAPr8 } from './instructions/swap.js';
+import { XORr8 } from './instructions/xor.js';
 
 const formatRegister = (register) => {
   return register.toString(16).toUpperCase().padStart(2, '0');
@@ -227,4 +227,4 @@ Z80.prototype.clearCarryFlagBit = clearCarryFlagBit;
 Z80.prototype.clearSubtractFlagBit = clearSubtractFlagBit;
 Z80.prototype.clearHalfCarryFlagBit = clearHalfCarryFlagBit;
 
-module.exports = Z80;
+export default Z80;

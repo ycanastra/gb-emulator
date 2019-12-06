@@ -1,10 +1,10 @@
-const EventEmitter = require('events');
+import EventEmitter from 'events';
 
-const Z80 = require('./z80/z80.js');
-const LCD = require('./lcd.js');
-const { repeatEvery } = require('./util');
+import Z80 from './z80/z80.js';
+import LCD from './lcd.js';
+import { repeatEvery } from './util';
 
-const bootstrap = require('./../../resources/DMG_ROM.bin');
+import bootstrap from './../../resources/DMG_ROM.bin';
 
 class GameBoy extends EventEmitter {
   constructor() {

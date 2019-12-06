@@ -17,7 +17,7 @@ function JPZn16(hNumber, lNumber) {
   }
 }
 
-module.exports = {
+export {
   JPn16,
   JPrr16,
   JPZn16,

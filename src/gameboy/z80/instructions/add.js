@@ -1,4 +1,4 @@
-const { combineBytes, seperateBytes } = require('./../bytesUtil.js');
+import { combineBytes, seperateBytes } from './../bytesUtil.js';
 
 function ADDr8r8(dstRegister, srcRegister) {
   const addVal = this.registers[dstRegister] + this.registers[srcRegister];
@@ -56,7 +56,7 @@ function ADDr16r16(hDstReg, lDstReg, hSrcReg, lSrcReg) {
   }
 }
 
-module.exports = {
+export {
   ADDr8r8,
   ADDr8rr16,
   ADDr16r16,

@@ -1,5 +1,4 @@
-
-const { combineBytes, seperateBytes } = require('./../bytesUtil.js');
+import { combineBytes, seperateBytes } from './../bytesUtil.js';
 
 function CALLn16(hNumber, lNumber) {
   const { highByte: pcH, lowByte: pcL } = seperateBytes(this.registers.pc);
@@ -12,6 +11,4 @@ function CALLn16(hNumber, lNumber) {
   this.registers.sp -= 2;
 }
 
-module.exports = {
-  CALLn16,
-};
+export { CALLn16 };

@@ -412,4 +412,4 @@ function execute() {
   this.currentCycle += this.instructionInfo.cycles;
 }
 
-module.exports = execute;
+export default execute;

@@ -1,4 +1,4 @@
-const { combineBytes, seperateBytes } = require('./../bytesUtil.js');
+import { combineBytes, seperateBytes } from './../bytesUtil.js';
 
 function INCr8(register) {
   this.registers[register] = (this.registers[register] + 1) & 0xFF;
@@ -20,7 +20,7 @@ function INCr16(hRegister, lRegister) {
   this.registers[lRegister] = lowByte;
 }
 
-module.exports = {
+export {
   INCr8,
   INCr16,
 };

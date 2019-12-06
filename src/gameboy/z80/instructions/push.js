@@ -6,4 +6,4 @@ function PUSHr16(hRegister, lRegister) {
   this.registers.sp -= 2;
 }
 
-module.exports = PUSHr16;
+export default PUSHr16;

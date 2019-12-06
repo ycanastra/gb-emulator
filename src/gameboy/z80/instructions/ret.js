@@ -1,5 +1,4 @@
-
-const { combineBytes } = require('./../bytesUtil.js');
+import { combineBytes } from './../bytesUtil.js';
 
 function RET() {
   const pcL = this.mainMemory[this.registers.sp];
@@ -20,7 +19,7 @@ function RETZ() {
   }
 }
 
-module.exports = {
+export {
   RET,
   RETZ,
 };

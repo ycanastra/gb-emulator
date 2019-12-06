@@ -16,6 +16,4 @@ function SUBr8(register) {
   }
 }
 
-module.exports = {
-  SUBr8,
-};
+export { SUBr8 };

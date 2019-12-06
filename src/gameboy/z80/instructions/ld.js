@@ -1,5 +1,4 @@
-
-const { combineBytes, seperateBytes } = require('./../bytesUtil.js');
+import { combineBytes, seperateBytes } from './../bytesUtil.js';
 
 function LDr8n8(register, number) {
   this.registers[register] = number;
@@ -106,7 +105,7 @@ function LDIrr16r8(hDstRegister, lDstRegister, srcRegister) {
   this.registers[lDstRegister] = lowByte;
 }
 
-module.exports = {
+export {
   LDr8n8,
   LDr8r8,
   LDr8rn16,

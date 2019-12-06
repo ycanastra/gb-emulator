@@ -6,4 +6,4 @@ function CPL() {
   this.setHalfCarryFlagBit();
 }
 
-module.exports = CPL;
+export default CPL;

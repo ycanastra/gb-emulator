@@ -1,4 +1,4 @@
-const opcodesData = require('./opcodes.json');
+import opcodesData from './opcodes.json';
 
 function fetch() {
   this.originalpc = this.registers.pc; // only used for debugging purposes
@@ -35,4 +35,4 @@ function fetch() {
   this.registers.pc += numBytesToRead;
 }
 
-module.exports = fetch;
+export default fetch;

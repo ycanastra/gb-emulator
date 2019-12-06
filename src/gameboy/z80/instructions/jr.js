@@ -35,7 +35,7 @@ function JRNZn8(number) {
   this.registers.pc = jumpAddress;
 }
 
-module.exports = {
+export {
   JRn8,
   JRZn8,
   JRNZn8,

@@ -5,4 +5,4 @@ function POPr16(hRegister, lRegister) {
   this.registers.sp += 2;
 }
 
-module.exports = POPr16;
+export default POPr16;

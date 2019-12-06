@@ -25,7 +25,7 @@ function ANDr8(register) {
   this.clearCarryFlagBit();
 }
 
-module.exports = {
+export {
   ANDn8,
   ANDr8,
 };

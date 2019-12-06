@@ -1,5 +1,4 @@
-
-const { combineBytes, seperateBytes } = require('./../bytesUtil.js');
+import { combineBytes, seperateBytes } from './../bytesUtil.js';
 
 function DECr8(register) {
   this.registers[register] = (this.registers[register] - 1) & 0xFF;
@@ -35,7 +34,7 @@ function DECrr16(hRegister, lRegister) {
   this.setSubtractFlagBit();
 }
 
-module.exports = {
+export {
   DECr8,
   DECr16,
   DECrr16,

@@ -9,4 +9,4 @@ function seperateBytes(word) {
   return { highByte, lowByte };
 }
 
-module.exports = { combineBytes, seperateBytes };
+export { combineBytes, seperateBytes };

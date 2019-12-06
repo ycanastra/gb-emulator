@@ -53,7 +53,7 @@ function RLr8(register) {
   this.clearHalfCarryFlagBit();
 }
 
-module.exports = {
+export {
   RLA,
   RLr8,
 };

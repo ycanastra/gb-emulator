@@ -1,4 +1,4 @@
-const { seperateBytes } = require('./../bytesUtil.js');
+import { seperateBytes } from './../bytesUtil.js';
 
 function RSTf(address) {
   const { highByte: pcHighByte, lowByte: pcLowByte } = seperateBytes(this.registers.pc);
@@ -10,4 +10,4 @@ function RSTf(address) {
   this.registers.sp -= 2;
 }
 
-module.exports = RSTf;
+export default RSTf;

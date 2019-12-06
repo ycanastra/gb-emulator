@@ -8,6 +8,4 @@ const repeatEvery = (cycleCount, callback) => {
   };
 };
 
-module.exports = {
-  repeatEvery,
-};
+export { repeatEvery };

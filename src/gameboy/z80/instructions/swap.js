@@ -14,6 +14,4 @@ function SWAPr8(register) {
   this.clearCarryFlagBit();
 }
 
-module.exports = {
-  SWAPr8,
-};
+export { SWAPr8 };

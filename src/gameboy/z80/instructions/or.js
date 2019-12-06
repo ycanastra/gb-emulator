@@ -25,7 +25,7 @@ function ORr8(register) {
   this.clearHalfCarryFlagBit();
 }
 
-module.exports = {
+export {
   ORn8,
   ORr8,
 };

@@ -50,7 +50,7 @@ function clearCarryFlagBit() {
   this.registers.f = clearBit(this.registers.f, 4);
 }
 
-module.exports = {
+export {
   getZeroFlagBit,
   getSubtractFlagBit,
   getHalfCarryFlagBit,

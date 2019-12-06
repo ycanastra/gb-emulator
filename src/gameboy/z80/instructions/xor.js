@@ -12,6 +12,4 @@ function XORr8(register) {
   this.clearCarryFlagBit();
 }
 
-module.exports = {
-  XORr8,
-};
+export { XORr8 };
