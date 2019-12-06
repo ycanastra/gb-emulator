@@ -11,7 +11,7 @@ Specify the path of the rom file to be loaded in `./gb-emulator.config.json`.
 
 Then run:
 ```sh
-npm start
+$ npm start
 ```
 
-Will load on `localhost:9000` and the browser will automatically reload on file changes.
+Will load on `localhost:9000`.
