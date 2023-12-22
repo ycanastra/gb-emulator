@@ -12,7 +12,7 @@ function BITn3r8(number, register) {
     this.clearZeroFlagBit();
   }
   this.clearSubtractFlagBit();
-  this.clearHalfCarryFlagBit();
+  this.setHalfCarryFlagBit();
 }
 
 export { BITn3r8 };

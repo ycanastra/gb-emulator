@@ -50,6 +50,12 @@ function clearCarryFlagBit() {
   this.registers.f = clearBit(this.registers.f, 4);
 }
 
+function isHalfCarry(a, b) {
+  return b < 0
+    ? (((a & 0xf) - ((-1) * b & 0xf)) & 0x10) === 0x10
+    : (((a & 0xf) + (b & 0xf)) & 0x10) === 0x10;
+}
+
 export {
   getZeroFlagBit,
   getSubtractFlagBit,
@@ -63,4 +69,5 @@ export {
   clearSubtractFlagBit,
   clearHalfCarryFlagBit,
   clearCarryFlagBit,
+  isHalfCarry,
 };

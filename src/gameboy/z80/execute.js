@@ -42,6 +42,10 @@ function execute() {
         this.LDr16n16('b', 'c', this.byte2, this.byte1);
         break;
       }
+      case 0x03: { // INC BC
+        this.INCr16('b', 'c');
+        break;
+      }
       case 0x04: { // INC B
         this.INCr8('b');
         break;
@@ -80,6 +84,10 @@ function execute() {
       }
       case 0x13: { // INC DE
         this.INCr16('d', 'e');
+        break;
+      }
+      case 0x14: {
+        this.INCr8('d');
         break;
       }
       case 0x15: { // DEC D
@@ -304,6 +312,14 @@ function execute() {
       }
       case 0xC3: { // JP $aabb
         this.JPn16(this.byte2, this.byte1);
+        break;
+      }
+      case 0xC4: { // CALL NZ $aabb
+        this.CALLNZn16(this.byte2, this.byte1);
+        break;
+      }
+      case 0xC6: { // ADD A,$xx
+        this.ADDn8('a', this.byte1);
         break;
       }
       case 0xC9: { // RET

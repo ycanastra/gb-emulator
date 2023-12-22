@@ -15,10 +15,10 @@ import {
   clearHalfCarryFlagBit,
 } from './flagsUtil.js';
 
-import { ADDr8r8, ADDr8rr16, ADDr16r16 } from './instructions/add.js';
+import { ADDr8r8, ADDr8rr16, ADDr16r16, ADDn8 } from './instructions/add.js';
 import { ANDn8, ANDr8 } from './instructions/and.js';
 import { BITn3r8 } from './instructions/bit.js';
-import { CALLn16 } from './instructions/call.js';
+import { CALLNZn16, CALLn16 } from './instructions/call.js';
 import { CPn8, CPrr16 } from './instructions/cp.js';
 import CPL from './instructions/cpl.js';
 import { INCr8, INCr16 } from './instructions/inc.js';
@@ -80,6 +80,8 @@ class Z80 {
     this.byte2 = null;
     this.originalpc = null;
     this.instructionInfo = null;
+
+    this.instructionCount = 0;
   }
   printRegisters() {
     /* eslint-disable no-console */
@@ -97,6 +99,27 @@ class Z80 {
     console.log(`c=  0b${this.getCarryFlagBit()}`);
     /* eslint-enable no-console */
   }
+
+  printRegisters2() {
+    const A = formatRegister(this.registers.a);
+    const B = formatRegister(this.registers.b);
+    const C = formatRegister(this.registers.c);
+    const D = formatRegister(this.registers.d);
+    const E = formatRegister(this.registers.e);
+    const F = formatRegister(this.registers.f);
+    const H = formatRegister(this.registers.h);
+    const L = formatRegister(this.registers.l);
+    const SP = this.registers.sp.toString(16).toUpperCase().padStart(4, '0');
+    const PC = this.registers.pc.toString(16).toUpperCase().padStart(4, '0');
+    const memory1 = this.readMemory(this.registers.pc).toString(16).toUpperCase().padStart(2, '0');
+    const memory2 = this.readMemory(this.registers.pc + 1).toString(16).toUpperCase().padStart(2, '0');
+    const memory3 = this.readMemory(this.registers.pc + 2).toString(16).toUpperCase().padStart(2, '0');
+    const memory4 = this.readMemory(this.registers.pc + 3).toString(16).toUpperCase().padStart(2, '0');
+    const memory = `${memory1} ${memory2} ${memory3} ${memory4}`;
+    const printStr = `A: ${A} F: ${F} B: ${B} C: ${C} D: ${D} E: ${E} H: ${H} L: ${L} SP: ${SP} PC: 00:${PC} (${memory})`;
+    console.log(printStr);
+  }
+
   loadBootstrap(instructions) {
     instructions.forEach((instruction, index) => {
       this.bootstrap[index] = instruction;
@@ -104,6 +127,9 @@ class Z80 {
     });
   }
   loadCartridge(instructions) {
+    if (instructions === null) {
+      return;
+    }
     this.cartridge = instructions;
     instructions.forEach((instruction, index) => {
       if (index > 0x7FFF) {
@@ -119,9 +145,22 @@ class Z80 {
     this.mainMemory.fill(0);
   }
   readMemory(address) {
+    // if (address === 0xFF44) {
+    //   return 0x90;
+    // }
+    if (address >= 0x0104 && address <= 0x0133) {
+      // debugger;
+    }
+
+    if (address >= 0x0134 && address <= 0x014d) {
+      // debugger;
+    }
     return this.mainMemory[address];
   }
   writeMemory(address, data) {
+    if (address === 0xFF01) {
+      // debugger;
+    }
     if (address === 0xFF00) {
       this.mainMemory[address] = 0xFF;
       return;
@@ -144,6 +183,7 @@ class Z80 {
 Z80.prototype.fetch = fetch;
 Z80.prototype.execute = execute;
 
+Z80.prototype.ADDn8 = ADDn8;
 Z80.prototype.ADDr8r8 = ADDr8r8;
 Z80.prototype.ADDr8rr16 = ADDr8rr16;
 Z80.prototype.ADDr16r16 = ADDr16r16;
@@ -154,6 +194,7 @@ Z80.prototype.ANDr8 = ANDr8;
 Z80.prototype.BITn3r8 = BITn3r8;
 
 Z80.prototype.CALLn16 = CALLn16;
+Z80.prototype.CALLNZn16 = CALLNZn16;
 
 Z80.prototype.CPn8 = CPn8;
 Z80.prototype.CPrr16 = CPrr16;

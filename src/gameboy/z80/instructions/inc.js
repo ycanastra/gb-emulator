@@ -1,6 +1,8 @@
+import { isHalfCarry } from '../flagsUtil.js';
 import { combineBytes, seperateBytes } from './../bytesUtil.js';
 
 function INCr8(register) {
+  const prevValue = this.registers[register];
   this.registers[register] = (this.registers[register] + 1) & 0xFF;
 
   if (this.registers[register] === 0) {
@@ -9,6 +11,12 @@ function INCr8(register) {
     this.clearZeroFlagBit();
   }
   this.clearSubtractFlagBit();
+
+  if (isHalfCarry(prevValue, 1)) {
+    this.setHalfCarryFlagBit();
+  } else {
+    this.clearHalfCarryFlagBit();
+  }
 }
 
 function INCr16(hRegister, lRegister) {

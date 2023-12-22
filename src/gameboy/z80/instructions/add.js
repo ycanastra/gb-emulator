@@ -1,6 +1,32 @@
+import { isHalfCarry } from '../flagsUtil.js';
 import { combineBytes, seperateBytes } from './../bytesUtil.js';
 
+function ADDn8(register, number) {
+  const prevValue = this.registers[register];
+  const addVal = this.registers[register] + number;
+  this.registers[register] = addVal & 0xFF;
+
+  if (this.registers[register] === 0x00) {
+    this.setZeroFlagBit();
+  } else {
+    this.clearZeroFlagBit();
+  }
+  this.clearSubtractFlagBit();
+  if (addVal > 0xFF) {
+    this.setCarryFlagBit();
+  } else {
+    this.clearHalfCarryFlagBit();
+  }
+
+  if (isHalfCarry(prevValue, number)) {
+    this.setHalfCarryFlagBit();
+  } else {
+    this.clearHalfCarryFlagBit();
+  }
+}
+
 function ADDr8r8(dstRegister, srcRegister) {
+  const prevValue = this.registers[dstRegister];
   const addVal = this.registers[dstRegister] + this.registers[srcRegister];
   this.registers[dstRegister] = addVal & 0xFF;
 
@@ -15,18 +41,25 @@ function ADDr8r8(dstRegister, srcRegister) {
   } else {
     this.clearHalfCarryFlagBit();
   }
+
+  if (isHalfCarry(prevValue, this.registers[srcRegister])) {
+    this.setHalfCarryFlagBit();
+  } else {
+    this.clearHalfCarryFlagBit();
+  }
 }
 
 function ADDr8rr16(register1, hRegister2, lRegister2) {
+  const prevValue = this.registers[register1];
   const hRegVal = this.registers[hRegister2];
   const lRegVal = this.registers[lRegister2];
   const address = combineBytes(hRegVal, lRegVal);
-  const additionOperand = this.mainMemory[address];
+  const additionOperand = this.readMemory(address);
   const addVal = this.registers[register1] + additionOperand;
-  this.registers.a = addVal & 0xFF;
+  this.registers[register1] = addVal & 0xFF;
 
   this.clearSubtractFlagBit();
-  if (this.registers.a === 0) {
+  if (this.registers[register1] === 0) {
     this.setZeroFlagBit();
   } else {
     this.clearZeroFlagBit();
@@ -35,6 +68,12 @@ function ADDr8rr16(register1, hRegister2, lRegister2) {
     this.setCarryFlagBit();
   } else {
     this.clearCarryFlagBit();
+  }
+
+  if (isHalfCarry(prevValue, additionOperand)) {
+    this.setHalfCarryFlagBit();
+  } else {
+    this.clearHalfCarryFlagBit();
   }
 }
 
@@ -57,6 +96,7 @@ function ADDr16r16(hDstReg, lDstReg, hSrcReg, lSrcReg) {
 }
 
 export {
+  ADDn8,
   ADDr8r8,
   ADDr8rr16,
   ADDr16r16,

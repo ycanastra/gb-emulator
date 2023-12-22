@@ -41,14 +41,34 @@ class GameBoy extends EventEmitter {
       repeatEvery(VRAM_CYCLES_PER_UPDATE, () => this.lcd.updateGraphics());
 
     const run = () => {
-      const pcToStop = 0x0300;
-      if (this.z80.registers.pc >= pcToStop) {
+      // console.log('hi');
+      const resetPc = 0x0100;
+
+      // const pcToStop = 0x0100;
+      if (this.z80.registers.pc === 0x073E) {
         this.z80.printRegisters();
+
+        // debugger;
         return;
       }
+      if (this.z80.registers.pc === resetPc) {
+        this.z80.printRegisters();
+
+        // debugger;
+        return;
+      }
+
+      // if (this.z80.registers.pc >= pcToStop) {
+
+      //   this.z80.printRegisters();
+      //   debugger;
+      //   return;
+      // }
       setTimeout(run, 0);
       const renderScreenCount = ~~(this.z80.getCurrentCycle() / SCREEN_CYCLES_PER_UPDATE);
       while (renderScreenCount + 1 !== ~~(this.z80.getCurrentCycle() / SCREEN_CYCLES_PER_UPDATE)) {
+        // this.z80.printRegisters2();
+
         this.z80.fetch();
         this.z80.execute();
 

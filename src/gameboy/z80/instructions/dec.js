@@ -1,6 +1,8 @@
+import { isHalfCarry } from '../flagsUtil.js';
 import { combineBytes, seperateBytes } from './../bytesUtil.js';
 
 function DECr8(register) {
+  const prevValue = this.registers[register];
   this.registers[register] = (this.registers[register] - 1) & 0xFF;
 
   if (this.registers[register] === 0) {
@@ -9,6 +11,12 @@ function DECr8(register) {
     this.clearZeroFlagBit();
   }
   this.setSubtractFlagBit();
+
+  if (isHalfCarry(prevValue, -1)) {
+    this.setHalfCarryFlagBit();
+  } else {
+    this.clearHalfCarryFlagBit();
+  }
 }
 
 function DECr16(hRegister, lRegister) {
@@ -22,8 +30,9 @@ function DECr16(hRegister, lRegister) {
 
 function DECrr16(hRegister, lRegister) {
   const address = combineBytes(this.registers[hRegister], this.registers[lRegister]);
+  const prevValue = this.readMemory(address);
 
-  const decrementedVal = (this.mainMemory[address] - 1) & 0xFF;
+  const decrementedVal = (this.readMemory(address) - 1) & 0xFF;
   this.writeMemory(address, decrementedVal);
 
   if (decrementedVal === 0) {
@@ -32,6 +41,12 @@ function DECrr16(hRegister, lRegister) {
     this.clearZeroFlagBit();
   }
   this.setSubtractFlagBit();
+
+  if (isHalfCarry(prevValue, -1)) {
+    this.setHalfCarryFlagBit();
+  } else {
+    this.clearHalfCarryFlagBit();
+  }
 }
 
 export {

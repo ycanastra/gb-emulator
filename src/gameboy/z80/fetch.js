@@ -33,6 +33,8 @@ function fetch() {
   this.instructionInfo = opcodeInfo;
 
   this.registers.pc += numBytesToRead;
+
+  this.instructionCount += 1;
 }
 
 export default fetch;
