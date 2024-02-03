@@ -13,10 +13,32 @@ function JRn8(number) {
   this.registers.pc = jumpAddress;
 }
 
+function JRCn8(number) {
+  const carryFlagBit = this.getCarryFlagBit();
+
+  if (carryFlagBit === 0) {
+    return;
+  }
+
+  const jumpAddress = getTwosComplement(number, 8) + this.registers.pc;
+  this.registers.pc = jumpAddress;
+}
+
 function JRZn8(number) {
   const zeroFlagBit = this.getZeroFlagBit();
 
   if (zeroFlagBit === 0) {
+    return;
+  }
+
+  const jumpAddress = getTwosComplement(number, 8) + this.registers.pc;
+  this.registers.pc = jumpAddress;
+}
+
+function JRNCn8(number) {
+  const carryFlagBit = this.getCarryFlagBit();
+
+  if (carryFlagBit === 1) {
     return;
   }
 
@@ -37,6 +59,8 @@ function JRNZn8(number) {
 
 export {
   JRn8,
+  JRCn8,
   JRZn8,
+  JRNCn8,
   JRNZn8,
 };

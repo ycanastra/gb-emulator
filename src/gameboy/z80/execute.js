@@ -10,12 +10,24 @@ function execute() {
         this.RLr8('c');
         break;
       }
+      case 0x1A: {
+        this.RRr8('d');
+        break;
+      }
+      case 0x19: { // RR C
+        this.RRr8('c');
+        break;
+      }
       case 0x27: { // SLA A
         this.SLA('a');
         break;
       }
       case 0x37: { // SWAP A
         this.SWAPr8('a');
+        break;
+      }
+      case 0x038: { // SRL B
+        this.SRLr8('b');
         break;
       }
       case 0x87: { // RES 0,A
@@ -130,6 +142,10 @@ function execute() {
         this.LDr8n8('e', this.byte1);
         break;
       }
+      case 0x1F: { // RRA
+        this.RRr8('a'); // not sure if this is right
+        break;
+      }
       case 0x20: { // JR NZ,$xx
         this.JRNZn8(this.byte1);
         break;
@@ -150,8 +166,20 @@ function execute() {
         this.INCr8('h');
         break;
       }
+      case 0x25: { // DEC H
+        this.DECr8('h');
+        break;
+      }
+      case 0x26: { // LD H,$xx
+        this.LDr8n8('h', this.byte1);
+        break;
+      }
       case 0x28: { // JR Z,$xx
         this.JRZn8(this.byte1);
+        break;
+      }
+      case 0x29: { // ADD HL,HL
+        this.ADDr16r16('h', 'l', 'h', 'l');
         break;
       }
       case 0x2A: { // LD A,(HLI)
@@ -162,12 +190,20 @@ function execute() {
         this.INCr8('l');
         break;
       }
+      case 0x2D: { // DEC L
+        this.DECr8('l');
+        break;
+      }
       case 0x2E: { // LD L, $xx
         this.LDr8n8('l', this.byte1);
         break;
       }
       case 0x2F: { // CPL
         this.CPL();
+        break;
+      }
+      case 0x30: { // JR NC,$xx
+        this.JRNCn8(this.byte1);
         break;
       }
       case 0x31: { // LD SP,$aabb
@@ -186,6 +222,10 @@ function execute() {
         this.LDrr16n8('h', 'l', this.byte1);
         break;
       }
+      case 0x38: { // JR C,$xx
+        this.JRCn8(this.byte1);
+        break;
+      }
       case 0x3D: { // DEC A
         this.DECr8('a');
         break;
@@ -194,8 +234,16 @@ function execute() {
         this.LDr8n8('a', this.byte1);
         break;
       }
+      case 0x46: { // LD B,(HL)
+        this.LDr8rr16('b', 'h', 'l');
+        break;
+      }
       case 0x47: { // LD B,A
         this.LDr8r8('b', 'a');
+        break;
+      }
+      case 0x4E: { // LD C,(HL)
+        this.LDr8rr16('c', 'h', 'l');
         break;
       }
       case 0x4F: { // LD C,A
@@ -238,16 +286,36 @@ function execute() {
         this.LDr8r8('h', 'a');
         break;
       }
-      case 0x7E: { // LD A,(HL)
-        this.LDr8rr16('a', 'h', 'l');
+      case 0x6E: { // LD L,(HL)
+        this.LDr8rr16('l', 'h', 'l');
         break;
       }
-      case 0x7B: { // LD A,E
-        this.LDr8r8('a', 'e');
+      case 0x6F: { // LD L,A
+        this.LDr8r8('l', 'a');
         break;
       }
-      case 0x7C: { // LD A,H
-        this.LDr8r8('a', 'h');
+      case 0x70: { // LD (HL),B
+        this.LDrr16r8('h', 'l', 'b');
+        break;
+      }
+      case 0x71: { // LD (HL),C
+        this.LDrr16r8('h', 'l', 'c');
+        break;
+      }
+      case 0x72: { // LD (HL),D
+        this.LDrr16r8('h', 'l', 'd');
+        break;
+      }
+      case 0x73: { // LD (HL),E
+        this.LDrr16r8('h', 'l', 'e');
+        break;
+      }
+      case 0x74: { // LD (HL),H
+        this.LDrr16r8('h', 'l', 'h');
+        break;
+      }
+      case 0x75: { // LD (HL),L
+        this.LDrr16r8('h', 'l', 'l');
         break;
       }
       case 0x77: { // LD (HL),A
@@ -262,8 +330,24 @@ function execute() {
         this.LDr8r8('a', 'c');
         break;
       }
+      case 0x7A: { // LD A,D
+        this.LDr8r8('a', 'd');
+        break;
+      }
+      case 0x7B: { // LD A,E
+        this.LDr8r8('a', 'e');
+        break;
+      }
+      case 0x7C: { // LD A,H
+        this.LDr8r8('a', 'h');
+        break;
+      }
       case 0x7D: { // LD A,L
         this.LDr8r8('a', 'l');
+        break;
+      }
+      case 0x7E: { // LD A,(HL)
+        this.LDr8rr16('a', 'h', 'l');
         break;
       }
       case 0x86: { // ADD A,(HL)
@@ -290,6 +374,10 @@ function execute() {
         this.XORr8('c');
         break;
       }
+      case 0xAE: { // XOR (HL)
+        this.XORrr16('h', 'l');
+        break;
+      }
       case 0xAF: { // XOR A
         this.XORr8('a');
         break;
@@ -300,6 +388,14 @@ function execute() {
       }
       case 0xB1: { // OR C
         this.ORr8('c');
+        break;
+      }
+      case 0xB6: { // OR (HL)
+        this.ORrr16('h', 'l');
+        break;
+      }
+      case 0xB7: { // OR A
+        this.ORr8('a');
         break;
       }
       case 0xBE: { // CP (HL)
@@ -342,12 +438,24 @@ function execute() {
         this.CALLn16(this.byte2, this.byte1);
         break;
       }
+      case 0xCE: { // ADC A,$xx
+        this.ADCn8(this.byte1);
+        break;
+      }
+      case 0xD0: { // RET NC
+        this.RETNC();
+        break;
+      }
       case 0xD1: { // POP DE
         this.POPr16('d', 'e');
         break;
       }
       case 0xD5: { // PUSH DE
         this.PUSHr16('d', 'e');
+        break;
+      }
+      case 0xD6: { // SUB $xx
+        this.SUBn8(this.byte1);
         break;
       }
       case 0xE0: { // LD ($xx),A
@@ -376,6 +484,10 @@ function execute() {
       }
       case 0xEA: { // LD ($aabb), A
         this.LDrn16r8(this.byte2, this.byte1, 'a');
+        break;
+      }
+      case 0xEE: { // XOR $xx
+        this.XORn8(this.byte1);
         break;
       }
       case 0xEF: { // RST $28

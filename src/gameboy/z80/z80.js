@@ -24,23 +24,26 @@ import CPL from './instructions/cpl.js';
 import { INCr8, INCr16 } from './instructions/inc.js';
 import { DECr8, DECr16, DECrr16 } from './instructions/dec.js';
 import { JPn16, JPrr16, JPZn16 } from './instructions/jp.js';
-import { JRn8, JRZn8, JRNZn8 } from './instructions/jr.js';
+import { JRn8, JRCn8, JRZn8, JRNZn8, JRNCn8 } from './instructions/jr.js';
 import {
   LDr8n8, LDr8r8, LDr8rn16, LDr8rr16, LDr16n16,
   LDrn16r8, LDrr8r8, LDrr16n8, LDrr16r8, LDDrr16r8,
   LDHr8rn8, LDHrn8r8, LDIr8rr16, LDIrr16r8,
 } from './instructions/ld.js';
-import { ORn8, ORr8 } from './instructions/or.js';
+import { ORn8, ORr8, ORrr16 } from './instructions/or.js';
 import POPr16 from './instructions/pop.js';
 import PUSHr16 from './instructions/push.js';
 import RESn3r8 from './instructions/res.js';
-import { RET, RETZ } from './instructions/ret.js';
+import { RET, RETC, RETNC, RETZ } from './instructions/ret.js';
 import { RLA, RLr8 } from './instructions/rl.js';
 import RSTf from './instructions/rst.js';
 import SLA from './instructions/sla.js';
-import { SUBr8 } from './instructions/sub.js';
+import { SUBn8, SUBr8 } from './instructions/sub.js';
+import { SRLr8 } from './instructions/srl.js';
 import { SWAPr8 } from './instructions/swap.js';
-import { XORr8 } from './instructions/xor.js';
+import { XORn8, XORr8, XORrr16 } from './instructions/xor.js';
+import { RRr8 } from './instructions/rr.js';
+import { ADCn8 } from './instructions/adc.js';
 
 const formatRegister = (register) => {
   return register.toString(16).toUpperCase().padStart(2, '0');
@@ -183,6 +186,8 @@ class Z80 {
 Z80.prototype.fetch = fetch;
 Z80.prototype.execute = execute;
 
+Z80.prototype.ADCn8 = ADCn8;
+
 Z80.prototype.ADDn8 = ADDn8;
 Z80.prototype.ADDr8r8 = ADDr8r8;
 Z80.prototype.ADDr8rr16 = ADDr8rr16;
@@ -213,8 +218,10 @@ Z80.prototype.JPrr16 = JPrr16;
 Z80.prototype.JPZn16 = JPZn16;
 
 Z80.prototype.JRn8 = JRn8;
+Z80.prototype.JRCn8 = JRCn8;
 Z80.prototype.JRZn8 = JRZn8;
 Z80.prototype.JRNZn8 = JRNZn8;
+Z80.prototype.JRNCn8 = JRNCn8;
 
 Z80.prototype.LDr8n8 = LDr8n8;
 Z80.prototype.LDr8r8 = LDr8r8;
@@ -233,27 +240,37 @@ Z80.prototype.LDIrr16r8 = LDIrr16r8;
 
 Z80.prototype.ORn8 = ORn8;
 Z80.prototype.ORr8 = ORr8;
+Z80.prototype.ORrr16 = ORrr16;
 
 Z80.prototype.POPr16 = POPr16;
 Z80.prototype.PUSHr16 = PUSHr16;
 
 Z80.prototype.RET = RET;
+Z80.prototype.RETC = RETC;
 Z80.prototype.RETZ = RETZ;
+Z80.prototype.RETNC = RETNC;
 
 Z80.prototype.RESn3r8 = RESn3r8;
 
 Z80.prototype.RLA = RLA;
 Z80.prototype.RLr8 = RLr8;
 
+Z80.prototype.RRr8 = RRr8;
+
 Z80.prototype.RSTf = RSTf;
 
 Z80.prototype.SLA = SLA;
 
+Z80.prototype.SUBn8 = SUBn8;
 Z80.prototype.SUBr8 = SUBr8;
+
+Z80.prototype.SRLr8 = SRLr8;
 
 Z80.prototype.SWAPr8 = SWAPr8;
 
+Z80.prototype.XORn8 = XORn8;
 Z80.prototype.XORr8 = XORr8;
+Z80.prototype.XORrr16 = XORrr16;
 
 Z80.prototype.getZeroFlagBit = getZeroFlagBit;
 Z80.prototype.getCarryFlagBit = getCarryFlagBit;

@@ -1,4 +1,4 @@
-import { isHalfCarry } from '../flagsUtil.js';
+import { isHalfCarry, isHalfCarry16bit } from '../flagsUtil.js';
 import { combineBytes, seperateBytes } from './../bytesUtil.js';
 
 function ADDn8(register, number) {
@@ -92,6 +92,12 @@ function ADDr16r16(hDstReg, lDstReg, hSrcReg, lSrcReg) {
     this.setCarryFlagBit();
   } else {
     this.clearCarryFlagBit();
+  }
+
+  if (isHalfCarry16bit(dstRegVal, srcRegVal)) {
+    this.setHalfCarryFlagBit();
+  } else {
+    this.clearHalfCarryFlagBit();
   }
 }
 

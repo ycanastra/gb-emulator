@@ -56,6 +56,10 @@ function isHalfCarry(a, b) {
     : (((a & 0xf) + (b & 0xf)) & 0x10) === 0x10;
 }
 
+function isHalfCarry16bit(a, b) {
+  return (((a & 0x00FF) + (b & 0x00FF)) & 0x0100) === 0x0100;
+}
+
 export {
   getZeroFlagBit,
   getSubtractFlagBit,
@@ -70,4 +74,5 @@ export {
   clearHalfCarryFlagBit,
   clearCarryFlagBit,
   isHalfCarry,
+  isHalfCarry16bit,
 };

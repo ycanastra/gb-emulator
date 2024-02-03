@@ -1,5 +1,30 @@
 import { isHalfCarry } from '../flagsUtil';
 
+function SUBn8(number) {
+  const prevValue = this.registers.a;
+  const subVal = this.registers.a - number;
+  this.registers.a = subVal & 0xFF;
+
+  this.setSubtractFlagBit();
+  if (this.registers.a === 0) {
+    this.setZeroFlagBit();
+  } else {
+    this.clearZeroFlagBit();
+  }
+
+  if (subVal < 0) {
+    this.setCarryFlagBit();
+  } else {
+    this.clearCarryFlagBit();
+  }
+
+  if (isHalfCarry(prevValue, -number)) {
+    this.setHalfCarryFlagBit();
+  } else {
+    this.clearHalfCarryFlagBit();
+  }
+}
+
 function SUBr8(register) {
   const prevValue = this.registers.a;
   const subVal = this.registers.a - this.registers[register];
@@ -25,4 +50,4 @@ function SUBr8(register) {
   }
 }
 
-export { SUBr8 };
+export { SUBr8, SUBn8 };

@@ -51,6 +51,7 @@ class GameBoy extends EventEmitter {
         // debugger;
         return;
       }
+
       if (this.z80.registers.pc === resetPc) {
         this.z80.printRegisters();
 
